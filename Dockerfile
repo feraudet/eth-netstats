@@ -1,13 +1,10 @@
-FROM node:14
+FROM node:10
 
-RUN adduser ethnetstats
+RUN npm install -g grunt-cli
 
-ADD ./ /home/ethnetstats/ethnetstats
-WORKDIR /home/ethnetstats/ethnetstats
-RUN npm -g install
+ADD ./ /opt
+WORKDIR /opt
+RUN npm install
+RUN grunt all
 
-
-RUN chown -R ethnetstats. /home/ethnetstats
-
-USER ethnetstats
-CMD ["/usr/local/bin/node", "/home/ethnetstats/ethnetstats/bin/www"]
+CMD ["/usr/local/bin/node", "/opt/bin/www"]
